@@ -20,6 +20,12 @@ services:
       - "5432:5432"
     environment:
       POSTGRES_PASSWORD: password1234
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "8080:80"
+
+
 volumes:
   
   db-volume:
