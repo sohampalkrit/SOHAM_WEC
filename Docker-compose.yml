@@ -1,31 +1,31 @@
 version: '3.4'
 
 services:
-  web:
+  web:  
     build: .
-    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'  # start when containerc starts 
     volumes:
-      - .:/app
-      - bundle-volume:/usr/local/bundle
+      - .:/app  #container 1 for copying all files for execution 
+      - bundle-volume:/usr/local/bundle #for storing gemfile bundles
     ports:
-      - "3000:3000"
+      - "3000:3000"  # expose port 
     depends_on:
       - db
 
   db:
     image: postgres:12
     volumes:
-      - db-volume:/var/lib/postgresql/data
+      - db-volume:/var/lib/postgresql/data # volume for database
     ports:
-      - "5432:5432"
+      - "5432:5432" #port exposed 
     environment:
       POSTGRES_PASSWORD: password1234
-  nginx:
+  nginx:  # for the rails application not to get exposed directly but via nginx port 8080
     image: nginx:alpine
     ports:
       - "8080:80"
 
-
+#volumes used 
 volumes:
   
   db-volume:
